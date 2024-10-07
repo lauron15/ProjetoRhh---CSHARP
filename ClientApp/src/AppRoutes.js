@@ -1,7 +1,9 @@
+import { Candidato } from "./components/Candidatos/Candidato";
 import { Counter } from "./components/Counter";
 import { FetchData } from "./components/FetchData";
 import { Home } from "./components/Home";
 import Vagas from "./components/Vagas/Vagas";
+import { VagasForm } from "./components/Vagas/VagasForm";
 
 const AppRoutes = [
   {
@@ -19,6 +21,14 @@ const AppRoutes = [
   {
     path: '/vagas',
     element: <Vagas />
+  },
+  {
+    path: '/vagas/:vagaId',
+    element: <VagasForm />
+  },
+  {
+    path: '/candidato',
+    element: <Candidato />
   }
 ];
 

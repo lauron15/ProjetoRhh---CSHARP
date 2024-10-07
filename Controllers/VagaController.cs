@@ -10,18 +10,26 @@ namespace ProjetoRhh.Controllers
     public class VagaController : ControllerBase
     {
 
-        private readonly AppDatabase _context; 
-        public VagaController (AppDatabase context)
+        private readonly AppDatabase _context;
+        public VagaController(AppDatabase context)
         {
             _context = context;
         }
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<ActionResult<IEnumerable<Vaga>>> VagaListarVagas() 
+        public async Task<ActionResult<IEnumerable<Vaga>>> VagaListarVagas()
         {
             var listarVagas = _context.Vagas.ToList();
             return listarVagas;
+        }
+
+        [HttpGet("{vagaId}")]
+        [AllowAnonymous]
+        public async Task<ActionResult<IEnumerable<Vaga>>> GetById([FromRoute] int vagaId)
+        {
+            var vaga =  _context.Vagas.Find(vagaId);
+            return Ok(vaga);
         }
 
         [HttpPost]
@@ -30,7 +38,7 @@ namespace ProjetoRhh.Controllers
         {
             _context.Vagas.Add(vagas);
             await _context.SaveChangesAsync();
-            return CreatedAtAction("GetVaga", new { id = vagas.id}, vagas);
+            return CreatedAtAction("GetVaga", new { id = vagas.id }, vagas);
         }
 
         [HttpPut("{id}")]
@@ -78,5 +86,5 @@ namespace ProjetoRhh.Controllers
 }
 
 
-    
+
 

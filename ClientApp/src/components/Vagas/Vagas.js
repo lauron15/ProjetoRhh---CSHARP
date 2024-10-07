@@ -3,6 +3,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import AddIcon from '@mui/icons-material/Add';
+import { Link } from 'react-router-dom';
 
 const columns = [
   { field: 'id', headerName: 'ID', flex: 0.5 },
@@ -26,12 +27,10 @@ const columns = [
     renderCell: (params) => {
       return (
         <>
-          <button
-            type='button'
-            className='btn btn-success'
-            onClick={() => { toast.success("id: " + params.row.id) }}>
+          <Link type="button" className="btn btn-outline-secondary  btn-sm" to={`/vagas/${params.row.id}`} >
             <AddIcon />
-          </button>
+            Editar
+          </Link>
         </>
       )
     }
@@ -46,7 +45,6 @@ const Vagas = () => {
 
     axios.get('/api/vaga')
       .then(response => {
-        toast.success("Vagas foram carregadas com sucesso!");
         setVagas(response.data);
         setLoading(false);
       })
@@ -62,38 +60,39 @@ const Vagas = () => {
       carregarVagas();
   }, [])
 
-  // if (loading)
-  //   return <div>Carregando...</div>
-  // else
-  return (
-    <div>
-      <div className='row'>
-        <div className='col'>
-          <h2>
-            Vagas
-          </h2>
+  if (loading)
+    return <div>Carregando...</div>
+  else
+    return (
+      <div>
+        <div className='row'>
+          <div className='col d-flex justify-content-between align-items-center'>
+            <h2>Vagas</h2>
+            <Link type="button" className="btn btn-outline-primary  btn-sm" to={`/vagas/0`} >
+              <AddIcon />
+              Criar
+            </Link>
+          </div>
         </div>
-      </div>
-      <div className='row mt-3'>
-        <div className='col'>
-          <DataGrid
-            rows={vagas}
-            columns={columns}
-            initialState={{
-              pagination: {
-                paginationModel: {
-                  pageSize: 5,
+        <div className='row mt-3'>
+          <div className='col'>
+            <DataGrid
+              rows={vagas}
+              columns={columns}
+              initialState={{
+                pagination: {
+                  paginationModel: {
+                    pageSize: 5,
+                  },
                 },
-              },
-            }}
-            pageSizeOptions={[5]}
-            checkboxSelection
-            disableRowSelectionOnClick
-          />
+              }}
+              pageSizeOptions={[5]}
+              disableRowSelectionOnClick
+            />
+          </div>
         </div>
       </div>
-    </div>
-  )
+    )
 }
 
 export default Vagas
