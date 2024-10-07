@@ -56,19 +56,19 @@ namespace ProjetoRhh.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> DeleteEmployee(int id)
         {
-            var employee = await _context.Vagas.FindAsync(id);
-            if (employee == null)
+            var vagas = await _context.Vagas.FindAsync(id);
+            if (vagas == null)
             {
                 return NotFound();
             }
 
-            _context.Vagas.Remove(employee);
+            _context.Vagas.Remove(vagas);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool EmployeeExists(int id)
+        private bool VagasExistente(int id)
         {
             return _context.Vagas.Any(e => e.id == id);
         }
