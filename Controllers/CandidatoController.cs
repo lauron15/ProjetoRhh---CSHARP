@@ -24,6 +24,14 @@ namespace ProjetoRhh.Controllers
             return listarCandidatos;
         }
 
+        [HttpGet("{candidatoId}")]
+        [AllowAnonymous]
+        public async Task<ActionResult<IEnumerable<Candidato>>> GetById([FromRoute] int candidatoId)
+        {
+            var Candidato = _context.Candidatos.Find(candidatoId);
+            return Ok(Candidato);
+        }
+
         [HttpPost]
         [AllowAnonymous]
         public async Task<ActionResult<Candidato>> PostCandidato(Candidato candidato)

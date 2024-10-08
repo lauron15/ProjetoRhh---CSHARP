@@ -1,4 +1,5 @@
 import { Candidato } from "./components/Candidatos/Candidato";
+import { CandidatoForm } from "./components/Candidatos/CandidatoForm";
 import { Counter } from "./components/Counter";
 import { FetchData } from "./components/FetchData";
 import { Home } from "./components/Home";
@@ -29,6 +30,13 @@ const AppRoutes = [
   {
     path: '/candidato',
     element: <Candidato />
+  },
+  {
+    // path é a rota, ou no caso o caminho e element e o nome do component que você vai usar
+    // geralmente usamos sempre um component "pai" e atribuimos components filhos
+    // dentro do pai, mas o principal sempre vai ser o pai
+    path: '/candidato/:candidatoId',
+    element: <CandidatoForm />
   }
 ];
 
