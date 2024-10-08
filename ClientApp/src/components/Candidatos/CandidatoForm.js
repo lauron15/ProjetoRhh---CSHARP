@@ -2,11 +2,13 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import BuscarItem from '../Utils/BuscarItem';
 
 const Initialcandidato = {
     id: 0,
     rg: '',
-    nomecandidato: ''
+    nomecandidato: '',
+    vagaId: 0
 }
 
 export const CandidatoForm = () => {
@@ -106,6 +108,25 @@ export const CandidatoForm = () => {
                         <label htmlFor="nomecandidato" className="col-2 col-form-label">Nome do Candidato</label>
                         <div className="col-6">
                             <input type='text' className='form-control' name="nomecandidato" value={candidato.nomecandidato} onChange={handleChange} />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className='row mt-3'>
+                <div className='col'>
+                    <div className="form-group row">
+                        <label htmlFor="nomecandidato" className="col-2 col-form-label">Vaga</label>
+                        <div className="col-6">
+                            <BuscarItem
+                                path={'api/vaga'}
+                                placeholder={"Informe a vaga"}
+                                recebeItem={(data) => {
+                                    if (data)
+                                        handleChange({ target: { value: data.id, name: "vagaId" } })
+                                }}
+                                idItem={candidato.vagaId}
+                            />
                         </div>
                     </div>
                 </div>

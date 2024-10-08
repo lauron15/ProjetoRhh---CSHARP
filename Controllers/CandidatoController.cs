@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ProjetoLoguin.Util;
 using ProjetoRhh.Model;
 
@@ -20,7 +21,7 @@ namespace ProjetoRhh.Controllers
         [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<Candidato>>> CandidatoListarCandidatos()
         {
-            var listarCandidatos = _context.Candidatos.ToList();
+            var listarCandidatos = _context.Candidatos.Include(c=> c.Vaga).ToList();
             return listarCandidatos;
         }
 
@@ -28,8 +29,8 @@ namespace ProjetoRhh.Controllers
         [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<Candidato>>> GetById([FromRoute] int candidatoId)
         {
-            var Candidato = _context.Candidatos.Find(candidatoId);
-            return Ok(Candidato);
+            var candidato = _context.Candidatos.Include(c=> c.Vaga).Where(c=> c.id == candidatoId).FirstOrDefault();
+            return Ok(candidato);
         }
 
         [HttpPost]

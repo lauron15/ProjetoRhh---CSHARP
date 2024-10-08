@@ -23,7 +23,12 @@ const columns = [
         headerName: 'Nome Candidato',
         flex: 1
     },
-
+    {
+        field: 'vaga.descricao',
+        headerName: 'Vaga',
+        flex: 1,
+        renderCell: (params) => params.row.vaga != null ? params.row.vaga.descricao : ""
+    },
     {
         field: "Ação",
         headerName: "Ação",

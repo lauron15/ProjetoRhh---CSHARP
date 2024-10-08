@@ -14,7 +14,13 @@ namespace ProjetoRhh.Model
         [Column("rg")]
         public String? rg { get; set; }
 
+        [Column("vagaId")]
+        public int? vagaId { get; set; }
+
         [Required(ErrorMessage = "O nome do candidato é obrigatório")]
         public string nomecandidato { get; set; }
+
+        public Vaga Vaga { get; set; }
+
     }
 }
